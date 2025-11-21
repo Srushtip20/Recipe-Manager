@@ -88,12 +88,8 @@ A full-stack Recipe Manager web application built with HTML, CSS, and JavaScript
 
 ## 🏗️ Technical Implementation
 
-### File Structure
-```
-Recipe/
-├── index.html      # Main HTML structure with all views
-├── styles.css      # Complete styling with responsive design
-└── script.js       # All JavaScript logic for CRUD, search, and UI
+
+
 ```
 ✅ **📁 Final Project Structure (Clean & Professional)**
 =======================================================
