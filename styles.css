@@ -44,7 +44,8 @@ body {
 .header-search {
     width: 100%;          /* full width but aligned left */
     max-width: 40%;     /* adjust size as you like */
-    margin-top: -4px; 
+    margin-top: -4px;
+    marin-ledt:0;
     border-radius: 8px;    /* small visual adjustment */
 }
 
