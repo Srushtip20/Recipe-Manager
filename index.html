@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+    <div class="header-main">
+
+        <!-- LOGO + TITLE -->
+        <div class="header-brand">
+            <img src="https://img.icons8.com/fluency/96/chef-hat.png" class="logo" alt="Recipe Icon">
+            <h1>Recipe Manager</h1>
+        </div>
+        <br>
+
+        <!-- SEARCH BAR (CENTER) -->
+        <div class="header-search">
+            <input type="text" id="searchInput" placeholder="Search recipes...">
+        </div>
+
+        <!-- FILTERS IN ONE ROW -->
+        <div class="header-filters">
+
+            <div class="filter-item">
+                <label for="difficultyFilter">DIFFICULTY:</label>
+                <select id="difficultyFilter">
+                    <option value="">All</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+            </div>
+
+            <div class="filter-item">
+                <label for="timeFilter">MAX TIME (MIN):</label>
+                <input type="number" id="timeFilter" placeholder="e.g., 10" min="0">
+            </div>
+
+            <div class="category-dropdown">
+                <button class="category-dropdown-btn" id="categoryDropdownBtn">
+                    <span class="category-icon">🍽️</span>
+                    <span class="category-text">Categories</span>
+                    <span class="category-arrow">▼</span>
+                </button>
+                <div class="category-dropdown-menu" id="categoryDropdownMenu">
+                    <div class="category-menu-item" data-dish="">All</div>
+                    <div class="category-menu-item" data-dish="North Indian">North Indian</div>
+                    <div class="category-menu-item" data-dish="South Indian">South Indian</div>
+                    <div class="category-menu-item" data-dish="Western Indian">Western Indian</div>
+                    <div class="category-menu-item" data-dish="Noodles">Noodles</div>
+                </div>
+            </div>
+
+            <button id="clearFilters" class="btn-clear">Clear Filters</button>
+            <button id="addRecipeBtn" class="btn-primary">+ Add New Recipe</button>
+
+        </div>
+
+    </div>
+</header>
+
+
+        <!-- Home View - Recipe List -->
+        <div id="homeView" class="view active">
+            <!-- Recipe Grid -->
+            <div class="recipes-section">
+                <h3 class="section-title">Popular Recipes</h3>
+                <div id="recipeGrid" class="recipe-grid">
+                    <!-- Recipe cards will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <div id="noRecipes" class="no-recipes" style="display: none;">
+                <p>Looks like the kitchen is empty! Change filters or cook up a new recipe!</p>
+            </div>
+        </div>
+
+        <!-- Recipe Detail Modal -->
+        <div id="recipeDetailModal" class="modal-overlay" style="display: none;">
+            <div class="modal-content">
+                <div class="form-header">
+                    <h2 id="detailTitle">Recipe Details</h2>
+                    <button id="closeDetailModal" class="btn-close" title="Close">✕</button>
+                </div>
+                <div id="recipeDetailContent" style="padding: 30px;">
+                    <!-- Recipe details will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Recipe Form Modal -->
+        <div id="addRecipeModal" class="modal-overlay" style="display: none;">
+            <div class="modal-content">
+                <div class="form-header">
+                    <h2 id="formTitle">Add New Recipe</h2>
+                    <button id="closeFormModal" class="btn-close" title="Close">✕</button>
+                </div>
+                <form id="recipeForm">
+                    <div class="form-group">
+                        <label for="recipeTitle">Title *</label>
+                        <input type="text" id="recipeTitle" required>
+                        <span class="error-message" id="titleError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeDescription">Description *</label>
+                        <textarea id="recipeDescription" rows="3" required></textarea>
+                        <span class="error-message" id="descriptionError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeCategory">Category *</label>
+                        <select id="recipeCategory" required>
+                            <option value="">Select category</option>
+                            <option value="North Indian"> North Indian</option>
+                            <option value="South Indian"> South Indian</option>
+                            <option value="Western Indian"> Western Indian</option>
+                            <option value="Noodles"> Noodles</option>
+                        </select>
+                        <span class="error-message" id="categoryError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeIngredients">Ingredients (one per line) *</label>
+                        <textarea id="recipeIngredients" rows="5" required placeholder="e.g.,&#10;2 cups flour&#10;1 cup sugar&#10; salt"></textarea>
+                        <span class="error-message" id="ingredientsError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeSteps">Steps (one per line) *</label>
+                        <textarea id="recipeSteps" rows="5" required placeholder="e.g.,&#10;Preheat oven to 350°F&#10;Mix dry ingredients&#10;Add wet ingredients"></textarea>
+                        <span class="error-message" id="stepsError"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="recipeTimes">Prep Time (minutes) *</label>
+                            <input type="number" id="recipeTimes" min="1" required>
+                            <span class="error-message" id="timesError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipeDifficulty">Difficulty *</label>
+                            <select id="recipeDifficulty" required>
+                                <option value="">Select difficulty</option>
+                                <option value="Easy">Easy</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Hard">Hard</option>
+                            </select>
+                            <span class="error-message" id="difficultyError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeImage">Recipe Image URL (optional)</label>
+                        <input type="url" id="recipeImage" placeholder="https://example.com/image.jpg">
+                        <span class="error-message" id="imageError"></span>
+                        <div id="imagePreview" style="margin-top: 10px;"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="saveRecipeBtn">
+                            <span id="saveIcon">💾</span> Save Recipe
+                        </button>
+                        <button type="button" id="cancelFormModal" class="btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="recipes-data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Force reset recipes on first load - remove this after first successful load
+      
+    </script>
+</body>
+</html>

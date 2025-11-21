@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Recipe</title>
+    <link rel="stylesheet" href="add-recipe-form.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Add/Edit Recipe Form View -->
+        <div id="formView" class="view">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2 id="formTitle">Add New Recipe</h2>
+                    <button id="closeForm" class="btn-close" title="Close">✕</button>
+                </div>
+                <form id="recipeForm">
+                    <div class="form-group">
+                        <label for="recipeTitle">Title *</label>
+                        <input type="text" id="recipeTitle" required>
+                        <span class="error-message" id="titleError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeDescription">Description *</label>
+                        <textarea id="recipeDescription" rows="3" required></textarea>
+                        <span class="error-message" id="descriptionError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeCategory">Category *</label>
+                        <select id="recipeCategory" required>
+                            <option value="">Select category</option>
+                            <option value="North Indian"> North Indian</option>
+                            <option value="South Indian"> South Indian</option>
+                            <option value="Western Indian"> Western Indian</option>
+                            <option value="Noodles"> Noodles</option>
+
+                        </select>
+                        <span class="error-message" id="categoryError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeIngredients">Ingredients (one per line) *</label>
+                        <textarea id="recipeIngredients" rows="5" required placeholder="e.g.,&#10;2 cups flour&#10;1 cup sugar&#10;3 eggs"></textarea>
+                        <span class="error-message" id="ingredientsError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeSteps">Steps (one per line) *</label>
+                        <textarea id="recipeSteps" rows="5" required placeholder="e.g.,&#10;Preheat oven to 350°F&#10;Mix dry ingredients&#10;Add wet ingredients"></textarea>
+                        <span class="error-message" id="stepsError"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="recipeTimes">Prep Time (minutes) *</label>
+                            <input type="number" id="recipeTimes" min="1" required>
+                            <span class="error-message" id="timesError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipeDifficulty">Difficulty *</label>
+                            <select id="recipeDifficulty" required>
+                                <option value="">Select difficulty</option>
+                                <option value="Easy">Easy</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Hard">Hard</option>
+                            </select>
+                            <span class="error-message" id="difficultyError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeImage">Recipe Image URL (optional)</label>
+                        <input type="url" id="recipeImage" placeholder="https://example.com/image.jpg">
+                        <span class="error-message" id="imageError"></span>
+                        <div id="imagePreview" style="margin-top: 10px;"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="saveRecipeBtn">
+                            <span id="saveIcon">💾</span> Save Recipe
+                        </button>
+                        <button type="button" id="updateRecipeBtn" class="btn-update" style="display: none;">
+                            <span>✏️</span> Update Recipe
+                        </button>
+                        <button type="button" id="deleteRecipeBtn" class="btn-delete-form" style="display: none;">
+                            <span>🗑️</span> Delete Recipe
+                        </button>
+                        <button type="button" id="cancelForm" class="btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="recipes-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
