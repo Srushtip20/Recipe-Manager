@@ -178,7 +178,11 @@
     <script src="script.js"></script>
     <script>
         // Force reset recipes on first load - remove this after first successful load
-      
+        if (!sessionStorage.getItem('recipesLoaded')) {
+            localStorage.removeItem('recipes');
+            sessionStorage.setItem('recipesLoaded', 'true');
+            location.reload();
+        }
     </script>
 </body>
 </html>
