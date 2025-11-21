@@ -26,6 +26,11 @@ body {
     gap: 14px;
 }
 
+.header-search {
+    width: 250px !important;     /* UNIFIED WIDTH */
+    height: 44px !important;     /* UNIFIED HEIGHT */
+}
+
 /* Brand stays at top */
 .header-brand {
     width: 100%;
