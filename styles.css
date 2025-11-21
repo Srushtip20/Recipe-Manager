@@ -1540,3 +1540,75 @@ body {
 #addRecipeBtn {
     border-radius: 12px !important;
 }
+
+
+
+
+/* ==========================================================
+   SEARCH BAR AT LEFT SIDE
+========================================================== */
+
+/* Keep entire header vertical (title → search → filters) */
+.header-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;  /* left alignment */
+    gap: 14px;
+}
+
+/* Recipe Manager title on the left */
+.header-brand {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* Search bar positioned at LEFT under the title */
+.header-search {
+    width: 100%;
+    max-width: 280px !important;   /* search bar size */
+    height: 44px !important;
+    margin-left: 0 !important;     /* force left */
+    margin-top: -4px;
+}
+
+/* Search input */
+.header-search input {
+    width: 100%;
+    height: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 12px !important;
+    background: #fff;
+    font-size: 0.95rem;
+    transition: 0.25s ease;
+}
+
+/* Search hover */
+.header-search input:hover {
+    border-color: #e23744;
+    background: #fff7f8;
+    box-shadow: 0 0 6px rgba(226,55,68,0.25);
+}
+
+/* Search focus */
+.header-search input:focus {
+    border-color: #e23744;
+    background: #fff5f7;
+    box-shadow: 0 0 8px rgba(226,55,68,0.35);
+}
+
+
+/* ==========================================================
+   FILTER ROW BELOW SEARCH BAR
+========================================================== */
+.header-filters {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
+    margin-top: 4px;
+}
+
