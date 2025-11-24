@@ -66,18 +66,18 @@ A full-stack Recipe Manager web application built with HTML, CSS, and JavaScript
 ```javascript
 [
   {
-    "id": "001",           // Unique identifier (timestamp + random string)
-    "title": "North Indian",                    // Recipe name
+    "id": "1700000000000abc123",           // Unique identifier (timestamp + random string)
+    "title": "Biryani",                    // Recipe name
     "description": "A flavorful and...",   // Brief description
     "ingredients": [                        // Array of ingredient strings
-      "1 tsp salt",
-      "2 Potato",
+      "2 cups basmati rice",
+      "500g chicken or mutton",
       "..."
     ],
     "steps": [                              // Array of instruction steps
-      "Turn on gas...",
-      "Heat oil...",
-      "Add spices..."
+      "Marinate the meat...",
+      "Cook basmati rice...",
+      "..."
     ],
     "times": 90,                            // Prep time in minutes (integer)
     "difficulty": "Hard",                   // One of: "Easy", "Medium", "Hard"
