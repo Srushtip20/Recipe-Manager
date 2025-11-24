@@ -66,18 +66,18 @@ A full-stack Recipe Manager web application built with HTML, CSS, and JavaScript
 ```javascript
 [
   {
-    "id": "1700000000000abc123",           // Unique identifier (timestamp + random string)
-    "title": "Biryani",                    // Recipe name
+    "id": "001",           // Unique identifier (timestamp + random string)
+    "title": "North Indian",                    // Recipe name
     "description": "A flavorful and...",   // Brief description
     "ingredients": [                        // Array of ingredient strings
-      "2 cups basmati rice",
-      "500g chicken or mutton",
+      "1 tsp salt",
+      "2 Potato",
       "..."
     ],
     "steps": [                              // Array of instruction steps
-      "Marinate the meat...",
-      "Cook basmati rice...",
-      "..."
+      "Turn on gas...",
+      "Heat oil...",
+      "Add spices..."
     ],
     "times": 90,                            // Prep time in minutes (integer)
     "difficulty": "Hard",                   // One of: "Easy", "Medium", "Hard"
@@ -88,14 +88,116 @@ A full-stack Recipe Manager web application built with HTML, CSS, and JavaScript
 
 ## 🏗️ Technical Implementation
 
-### File Structure
-```
-Recipe/
-├── index.html      # Main HTML structure with all views
-├── styles.css      # Complete styling with responsive design
-└── script.js       # All JavaScript logic for CRUD, search, and UI
-```
 
+
+```
+✅ **📁 Final Project Structure (Clean & Professional)**
+=======================================================
+
+`Recipe/
+│
+├── index.html                 # Main UI: Recipe list, header, filters, search
+├── styles.css                 # Complete global styling (header, filters, cards, modal)
+├── script.js                  # Full logic (localStorage, CRUD, search, filter, routing)
+├── recipes-data.js            # Contains default recipe objects (pav bhaji, tikka, etc.)
+│
+├── add-recipe-form.html       # Add / Edit Recipe modal page (standalone)
+├── add-recipe-form.css        # Styling specific for recipe form UI
+│
+└── README.md                  # Setup instructions, project explanation`
+
+* * * * *
+
+📌 **Explanation of Folder Structure**
+======================================
+
+### ✔ **index.html**
+
+-   Loads all recipes
+
+-   Header + filters + search
+
+-   Grid layout
+
+-   View recipe → detail page
+
+-   Buttons: Add Recipe, Clear Filters
+
+### ✔ **styles.css**
+
+-   Unified styling for:
+
+    -   Header
+
+    -   Filters
+
+    -   Search bar
+
+    -   Category dropdown
+
+    -   Buttons
+
+    -   Cards
+
+    -   Recipe detail modal
+
+    -   Animation and responsiveness
+
+### ✔ **script.js**
+
+Handles all functionality:
+
+-   LocalStorage CRUD
+
+-   Add edit delete
+
+-   Search filter
+
+-   Category dropdown logic
+
+-   Rendering cards
+
+-   Opening detail view
+
+### ✔ **recipes-data.js**
+
+Default recipe seed file:
+
+-   Pav Bhaji
+
+-   Tikka Masala
+
+-   Khatta Dhokla
+
+-   Ragi Mudde
+
+-   Carrot Halwa\
+    → Loaded only once into localStorage
+
+### ✔ **add-recipe-form.html & add-recipe-form.css**
+
+Standalone Add / Edit recipe page\
+Useful when opening form on separate screen
+
+### ✔ **pavbhaji.webp**
+
+Recipe image used for default card
+
+### ✔ **README.md**
+
+Contains:
+
+-   Setup
+
+-   Screenshots
+
+-   File usage
+
+-   Project flow
+
+-   How to deploy
+
+-   LocalStorage explanation
 ### Key Technologies
 - **HTML5**: Semantic markup, form validation attributes
 - **CSS3**: Flexbox, Grid, animations, media queries
@@ -207,4 +309,4 @@ Recipe/
 
 **Developed as a Full-Stack Engineer Assessment Project**  
 **Duration**: Designed to be completed within 10 hours  
-**Technologies**: HTML5, CSS3, Vanilla JavaScript, localStorage API
+**Technologies**: HTML5, CSS3, JavaScript, localStorage API

@@ -16,141 +16,209 @@ body {
   line-height: 1.6;
 }
 
-/* ========================================
-   HEADER
-   ======================================== */
-/* MOVE SEARCH BAR BELOW BRAND + ALIGN LEFT */
+/* ============================================================
+   GLOBAL RESET
+============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  background: #f7f7f8;
+  color: #222;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   FUN SUB-HEADING (Your Name)
+============================================================ */
+.sub-heading {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 6px;
+    font-weight: 500;
+    text-align: left;
+    letter-spacing: 0.5px;
+    animation: cautiousBlink 2s ease-in-out infinite;
+}
+
+/* Smooth, gentle blink */
+@keyframes cautiousBlink {
+    0% { opacity: 1; }
+    40% { opacity: 0.65; }
+    50% { opacity: 0.4; }
+    60% { opacity: 0.65; }
+    100% { opacity: 1; }
+}
+.sun-heading:hover {
+  transform: scale(1.05);
+  text-shadow: 0 3px 10px rgba(0,0,0,0.25);
+}
+
+@keyframes softBlink {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* ============================================================
+   HEADER MAIN LAYOUT
+============================================================ */
 .header-main {
-    flex-direction: column;
-    align-items: left;   /* align to left side */
-    gap: 14px;
-}
-
-/* Brand stays at top */
-.header-brand {
-    width: 100%;
-    display: flex;
-    align-items: left;
-    justify-content: flex-start;
-    
-}
-
-/* Search bar just below brand */
-.header-search {
-    width: 100%;          /* full width but aligned left */
-    max-width: 40%;     /* adjust size as you like */
-    margin-top: -4px; 
-    border-radius: 8px;    /* small visual adjustment */
-}
-
-/* Filters below search bar */
-.header-filters {
-    width: 100%;
-    justify-content: flex-start;
-    margin-top: 4px;
-}
-
-.header-search {
-    max-width: 360px;
-}
-
-
-.header-search {
-    margin-left: 10px;
-}
-
-.header-search {
-    max-width: 100%;
-}
-
-
-.filter-item {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-    border-radius: 8px;
-  font-size: 0.85rem;
+  width: 100%;
+
+  gap: 14px;
 }
 
-.filter-item label {
-  font-weight: 600;
-  color: #666;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 0.5px;
-  visibility: hidden;
-    border-radius: 8px;
-  height: 0;
-}
-
-.filter-item input,
-.filter-item select {
-  padding: 10px 18px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  outline: none;
-  font-size: 0.9rem;
-  min-width: 120px;
-  transition: border-color 0.2s;
-}
-
-.filter-item input:focus,
-.filter-item select:focus {
-  border-color: #e23744;
-}
-
-/* Category Dropdown */
-.category-dropdown {
-  position: relative;
-  align-self: flex-end;
-}
-
-.category-btn,
-.category-dropdown-btn {
+/* ICON + TITLE (FIRST ROW) */
+.header-brand {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: white;
+  gap: 12px;
+  animation: fadeSlide 2s ease-out forwards;
+}
+
+@keyframes fadeSlide {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.header-brand .brand-logo {
+  width: 48px;
+  height: 48px;
+}
+
+.header-brand .brand-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #222;
+}
+
+
+/* Reduce gap between heading (Recipe Manager) and search bar */
+.header-brand {
+    margin-bottom: 8px !important;   /* reduce bottom space */
+}
+
+.header-search {
+    margin-top: 0px !important;      /* tighten spacing */
+}
+
+
+/* ============================================================
+   SEARCH BAR (SECOND ROW)
+============================================================ */
+.header-search {
+  width: 100%;
+  max-width: 550px;
+}
+
+.header-search input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  border-radius: 12px;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: all 0.2s;
+  font-size: 1rem;
+
+  background-size: 10px;
+  transition: all 0.25s ease;
 }
 
-.category-btn:hover,
-.category-dropdown-btn:hover {
+.header-search input:hover {
   border-color: #e23744;
-  background: #fff5f6;
+  background-color: #fff7f8;
+  box-shadow: 0 0 6px rgba(226,55,68,0.25);
 }
 
-.caret {
-  font-size: 0.8rem;
-  transition: transform 0.2s;
+.header-search input:focus {
+  border-color: #e23744;
+  background-color: #fff5f7;
+  box-shadow: 0 0 8px rgba(226,55,68,0.35);
 }
 
+/* ============================================================
+   5 FILTERS ROW (THIRD ROW)
+============================================================ */
+.header-filters {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* All 5 look equal */
+.filter-item,
+.category-dropdown,
+.btn-clear,
+#addRecipeBtn {
+  flex: 1 1 200px;
+  min-width: 180px;
+}
+
+/* Controls same height */
+.filter-item select,
+.filter-item input,
+.category-dropdown-btn,
+.btn-clear,
+#addRecipeBtn {
+  height: 46px;
+  width: 100%;
+  border-radius: 10px;
+  transition: 0.25s;
+}
+
+/* Hover effect for all */
+
+
+.filter-item input:hover,
+.filter-item select:hover,
+.category-dropdown-btn:hover,
+.header-search,
+.btn-clear:hover,
+#addRecipeBtn:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 4px 10px rgba(0, 0, 255, 0.419);
+}
+
+/* CATEGORY */
+.category-dropdown {
+  position: relative;
+}
+
+.category-dropdown-btn {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 0 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* CATEGORY MENU */
 .category-dropdown-menu {
+  display: none;
   position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 8px;
-  background: white;
-  border: 1px solid #e6e6e8;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  min-width: 200px;
-  z-index: 1000;
+  width: 100%;
+  top: calc(100% + 6px);
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   overflow: hidden;
+  z-index: 50;
+}
+
+.show-menu {
+  display: block !important;
 }
 
 .category-menu-item {
-  display: block;
   padding: 12px 16px;
-  color: #333;
-  text-decoration: none;
-  transition: background 0.2s;
   cursor: pointer;
 }
 
@@ -158,73 +226,139 @@ body {
   background: #f7f7f8;
 }
 
-/* Buttons */
-.btn {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
+/* CLEAR FILTER BUTTON */
+.btn-clear {
+  border: 1px solid #ddd;
+  background: #fafafa;
   font-weight: 600;
-  transition: all 0.2s;
-  outline: none;
 }
 
-.btn-primary {
+/* ADD RECIPE BUTTON */
+#addRecipeBtn {
   background: #e23744;
   color: white;
-}
-
-.btn-primary:hover {
-  background: #cb202d;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(226, 55, 68, 0.3);
-}
-
-.btn-clear {
-  background: #f0f0f0;
-  color: #333;
-  padding: 10px 18px;
-  font-size: 0.9rem;
+  border: none;
   font-weight: 600;
 }
 
-.btn-clear:hover {
-  background: #e0e0e0;
+
+
+/* Move ONLY category dropdown down by 20px without affecting layout */
+.category-dropdown {
+    position: relative;
+    top: 9px;        /* moves visually but keeps layout intact */
 }
 
-/* Add Recipe Button - Match filter button size */
+/* Optional: If you want Clear Filter also lower */
+.btn-clear {
+    position: relative;
+    top: 9px;
+}
+
+
+
+.category-dropdown,
+.btn-clear,
 #addRecipeBtn {
-  padding: 10px 18px;
-  align-self: flex-end;
+    position: relative;
+    top: 9px;       /* visual shift — does NOT push layout */
 }
 
-.btn-close {
-  background: #f0f0f0;
-  color: #333;
-  margin-bottom: 20px;
+@media (max-width: 900px) {
+    .category-dropdown,
+    .btn-clear {
+        top: 8px;     /* reduce drop for tablets */
+    }
 }
 
-.btn-close:hover {
-  background: #e0e0e0;
+@media (max-width: 600px) {
+    .category-dropdown,
+    .btn-clear {
+        top: 0px;     /* normal position on mobiles */
+    }
 }
 
-.btn-edit {
-  background: #4CAF50;
-  color: white;
+
+
+/* Add black border to CATEGORY button */
+.header-search,
+.filter-item select,
+.category-dropdown-btn,
+.btn-clear,
+#addRecipeBtn  {
+    border: 1px solid #000 !important;
 }
 
-.btn-edit:hover {
-  background: #45a049;
+/* Add black border to CLEAR FILTER button */
+
+
+/* 
+.category-dropdown-btn:hover,
+.btn-clear:hover {
+    border-color: #333 !important;
+    background: #fafafa;
+} */
+
+
+
+/* ============================================================
+   RESPONSIVE BEHAVIOR
+============================================================ */
+
+/* LAPTOP (ALL IN ONE ROW) */
+@media (min-width: 1025px) {
+  .header-filters {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  /* only category + clear filter slightly down */
+  .category-dropdown,
+  .btn-clear {
+    margin-top: 18px;
+  }
+
+  #addRecipeBtn {
+    margin-top: 18px;
+  }
 }
 
-.btn-delete {
-  background: #f44336;
-  color: white;
+/* TABLETS – 2 PER ROW */
+@media (max-width: 900px) {
+  .filter-item,
+  .category-dropdown,
+  .btn-clear,
+  #addRecipeBtn {
+    flex: 1 1 calc(50% - 14px);
+  }
 }
 
-.btn-delete:hover {
-  background: #da190b;
+/* MOBILE – 1 PER ROW */
+@media (max-width: 600px) {
+  .filter-item,
+  .category-dropdown,
+  .btn-clear,
+  #addRecipeBtn {
+    flex: 1 1 100%;
+  }
+
+  .header-brand {
+    justify-content: center;
+  }
+
+  .header-brand .brand-title {
+    font-size: 1.4rem;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 400px) {
+  .category-dropdown-btn,
+  .filter-item select,
+  .filter-item input {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
 }
 
 /* ========================================
@@ -1512,3 +1646,6 @@ body {
 #addRecipeBtn {
     border-radius: 12px !important;
 }
+
+
+

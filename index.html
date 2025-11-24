@@ -15,19 +15,21 @@
         <div class="header-brand">
             <img src="https://img.icons8.com/fluency/96/chef-hat.png" class="logo" alt="Recipe Icon">
             <h1>Recipe Manager</h1>
-        </div>
+                   </div>
+                    <h2 class="sub-heading">Made by Srushti — because Swiggy was taking too long</h2>
         <br>
 
         <!-- SEARCH BAR (CENTER) -->
-        <div class="header-search">
-            <input type="text" id="searchInput" placeholder="Search recipes...">
-        </div>
+     <div class="header-search">
+    <span class="search-icon"></span>
+    <input type="text" id="searchInput" placeholder="🔍  Search recipes...">
+     </div>
 
         <!-- FILTERS IN ONE ROW -->
         <div class="header-filters">
 
             <div class="filter-item">
-                <label for="difficultyFilter">DIFFICULTY:</label>
+                <label style="font-weight: bold;" for="difficultyFilter">Difficulty</label>
                 <select id="difficultyFilter">
                     <option value="">All</option>
                     <option value="Easy">Easy</option>
@@ -37,7 +39,7 @@
             </div>
 
             <div class="filter-item">
-                <label for="timeFilter">MAX TIME (MIN):</label>
+                <label style="font-weight: bold;" for="timeFilter">Cooking Time(min)</label>
                 <input type="number" id="timeFilter" placeholder="e.g., 10" min="0">
             </div>
 
@@ -127,13 +129,13 @@
 
                     <div class="form-group">
                         <label for="recipeIngredients">Ingredients (one per line) *</label>
-                        <textarea id="recipeIngredients" rows="5" required placeholder="e.g.,&#10;2 cups flour&#10;1 cup sugar&#10; salt"></textarea>
+                        <textarea id="recipeIngredients" rows="5" required placeholder="e.g.,&#10;1 tsp Salt&#10;2 Potato&#10;2 tomato"></textarea>
                         <span class="error-message" id="ingredientsError"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="recipeSteps">Steps (one per line) *</label>
-                        <textarea id="recipeSteps" rows="5" required placeholder="e.g.,&#10;Preheat oven to 350°F&#10;Mix dry ingredients&#10;Add wet ingredients"></textarea>
+                        <textarea id="recipeSteps" rows="5" required placeholder="e.g.,&#10;Turn on gas&#10;Heat oil&#10;Add spices"></textarea>
                         <span class="error-message" id="stepsError"></span>
                     </div>
 
@@ -156,12 +158,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="recipeImage">Recipe Image URL (optional)</label>
-                        <input type="url" id="recipeImage" placeholder="https://example.com/image.jpg">
-                        <span class="error-message" id="imageError"></span>
-                        <div id="imagePreview" style="margin-top: 10px;"></div>
-                    </div>
+                  <div class="form-group">
+    <label for="recipeImage">Recipe Image URL (optional)</label>
+    <input type="url" id="recipeImage" placeholder="https://example.com/image.jpg">
+    <span class="error-message" id="imageError"></span>
+    <div id="imagePreview" style="margin-top: 10px;"></div>
+</div>
 
                     <div class="form-actions">
                         <button type="submit" class="btn-primary" id="saveRecipeBtn">
@@ -174,15 +176,13 @@
         </div>
     </div>
 
+    
+
     <script src="recipes-data.js"></script>
     <script src="script.js"></script>
     <script>
         // Force reset recipes on first load - remove this after first successful load
-        if (!sessionStorage.getItem('recipesLoaded')) {
-            localStorage.removeItem('recipes');
-            sessionStorage.setItem('recipesLoaded', 'true');
-            location.reload();
-        }
+    
     </script>
 </body>
 </html>

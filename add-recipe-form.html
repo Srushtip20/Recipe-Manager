@@ -43,13 +43,13 @@
 
                     <div class="form-group">
                         <label for="recipeIngredients">Ingredients (one per line) *</label>
-                        <textarea id="recipeIngredients" rows="5" required placeholder="e.g.,&#10;2 cups flour&#10;1 cup sugar&#10;3 eggs"></textarea>
+                        <textarea id="recipeIngredients" rows="5" required placeholder="e.g.,&#10;1 tsp salt&#10;2 Potato&#10;2 Tomato"></textarea>
                         <span class="error-message" id="ingredientsError"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="recipeSteps">Steps (one per line) *</label>
-                        <textarea id="recipeSteps" rows="5" required placeholder="e.g.,&#10;Preheat oven to 350°F&#10;Mix dry ingredients&#10;Add wet ingredients"></textarea>
+                        <textarea id="recipeSteps" rows="5" required placeholder="e.g.,&#10;Turn on gas&#10;Heat oil&#10;Add spices"></textarea>
                         <span class="error-message" id="stepsError"></span>
                     </div>
 
@@ -71,13 +71,13 @@
                             <span class="error-message" id="difficultyError"></span>
                         </div>
                     </div>
+<div class="form-group">
+    <label for="recipeImage">Recipe Image URL (optional)</label>
+    <input type="url" id="recipeImage" placeholder="https://example.com/image.jpg">
+    <span class="error-message" id="imageError"></span>
+    <div id="imagePreview" style="margin-top: 10px;"></div>
+</div>
 
-                    <div class="form-group">
-                        <label for="recipeImage">Recipe Image URL (optional)</label>
-                        <input type="url" id="recipeImage" placeholder="https://example.com/image.jpg">
-                        <span class="error-message" id="imageError"></span>
-                        <div id="imagePreview" style="margin-top: 10px;"></div>
-                    </div>
 
                     <div class="form-actions">
                         <button type="submit" class="btn-primary" id="saveRecipeBtn">

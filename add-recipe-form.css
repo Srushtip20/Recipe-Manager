@@ -206,22 +206,30 @@ form {
 }
 
 .btn-update {
-  background: #27ae60;
-  color: white;
+  background: #27ae60; /* Green */
+  color: blue;
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.25);
 }
 
-/* .btn-update:hover {
-  background:blueviolet;
-} */
+.btn-update:hover {
+  background: #1e8c4d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(39, 174, 96, 0.35);
+}
 
 .btn-delete-form {
-  background: #e74c3c;
-  color: black;
+  background: #2ecc71; /* Green version */
+  color: white;
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.25);
 }
 
 .btn-delete-form:hover {
-  background: #c0392b;
+  background: #27ae60;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(46, 204, 113, 0.35);
 }
+
+
 
 /* ========================================
    RESPONSIVE

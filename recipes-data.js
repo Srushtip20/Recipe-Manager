@@ -174,7 +174,7 @@ const recipesData = [
     id: "recipe_IndianDessert_007",
     title: "Carrot Halwa (Gajar Ka Halwa)",
     description: "A rich, traditional Indian dessert made by slow-cooking grated carrots in milk, ghee, and sugar, flavored with cardamom and garnished with nuts.",
-    category: "Indian Dessert",
+    category: "North Indian",
     ingredients: [
         "4 cups grated carrots (red carrots preferred)",
         "2 cups full-fat milk",
