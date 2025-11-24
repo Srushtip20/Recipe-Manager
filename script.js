@@ -13,32 +13,28 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ====================================================
-   FIXED: Load MANUAL + LOCAL recipes together
+   FIXED: Load MANUAL + LOCAL recipes together (NO DUPLICATES)
    ==================================================== */
 function initializeRecipes() {
   try {
-    let local = [];
-    const stored = localStorage.getItem('recipes');
+    let stored = JSON.parse(localStorage.getItem('recipes')) || [];
+    let manual = Array.isArray(recipesData)
+      ? JSON.parse(JSON.stringify(recipesData))
+      : [];
 
-    // Load localStorage recipes
-    if (stored) {
-      local = JSON.parse(stored);
-    }
+    // Merge both
+    recipes = [...manual, ...stored];
 
-    // Load manual default recipes
-    let manual = [];
-    if (typeof recipesData !== 'undefined' && Array.isArray(recipesData)) {
-      manual = JSON.parse(JSON.stringify(recipesData));
-    }
+    // Remove duplicates by ID
+    const unique = {};
+    recipes.forEach(r => unique[r.id] = r);
+    recipes = Object.values(unique);
 
-    // MERGE BOTH (manual + local)
-    recipes = [...manual, ...local];
-
-    // Save merged results back only once
-    saveRecipes();
+    // Save cleaned final list
+    localStorage.setItem("recipes", JSON.stringify(recipes));
 
   } catch (err) {
-    console.error('Failed to initialize recipes:', err);
+    console.error("INIT ERROR:", err);
     recipes = [];
   }
 }
@@ -49,7 +45,6 @@ function saveRecipes() {
     localStorage.setItem('recipes', JSON.stringify(recipes));
   } catch (err) {
     console.error('Failed to save recipes:', err);
-    alert('Failed to save recipes. Storage might be full.');
   }
 }
 
@@ -119,6 +114,7 @@ function setupEventListeners() {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
         document.getElementById('recipeForm')?.reset();
+        editingRecipeId = null;
       }
     });
   }
@@ -130,6 +126,7 @@ function setupEventListeners() {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
         document.getElementById('recipeForm')?.reset();
+        editingRecipeId = null;
       }
     });
   }
@@ -141,6 +138,7 @@ function setupEventListeners() {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
         document.getElementById('recipeForm')?.reset();
+        editingRecipeId = null;
       }
     });
   }
@@ -184,10 +182,9 @@ function displayRecipes() {
       !searchQuery ||
       recipe.title.toLowerCase().includes(searchQuery) ||
       recipe.description.toLowerCase().includes(searchQuery) ||
-      (recipe.ingredients &&
-        recipe.ingredients.some(i =>
-          i.toLowerCase().includes(searchQuery)
-        ));
+      recipe.ingredients?.some(i =>
+        i.toLowerCase().includes(searchQuery)
+      );
 
     const matchesDifficulty = !difficultyFilter || recipe.difficulty === difficultyFilter;
     const matchesTime = recipe.times <= timeFilter;
@@ -219,16 +216,13 @@ function displayRecipes() {
 
 // Create recipe card
 function createRecipeCard(recipe) {
-  const defaultImage =
-    'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600';
-  const difficultyClass = recipe.difficulty ? recipe.difficulty.toLowerCase() : 'medium';
+  const imagePart = recipe.image && recipe.image.trim() !== ''
+    ? `<img src="${recipe.image}" class="recipe-img" onerror="this.style.display='none'">`
+    : '';
 
   return `
     <article class="recipe-card" data-id="${recipe.id}">
-      <img src="${recipe.image || defaultImage}" 
-           alt="${escapeHtml(recipe.title)}" 
-           class="recipe-img"
-           onerror="this.src='${defaultImage}'">
+      ${imagePart}
 
       <div class="recipe-card-body">
         <h3 class="recipe-title">${escapeHtml(recipe.title)}</h3>
@@ -236,7 +230,7 @@ function createRecipeCard(recipe) {
         
         <div class="recipe-meta">
           <span class="time-badge">⏱️ ${recipe.times || 0} min</span>
-          <span class="difficulty-badge ${difficultyClass}">
+          <span class="difficulty-badge ${recipe.difficulty?.toLowerCase() || 'medium'}">
             ${recipe.difficulty || 'Medium'}
           </span>
         </div>
@@ -255,25 +249,23 @@ function showRecipeDetail(recipeId) {
   const recipe = recipes.find(r => r.id === recipeId);
   if (!recipe) return alert('Recipe not found!');
 
-  const defaultImage =
-    'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600';
-  const difficultyClass = recipe.difficulty ? recipe.difficulty.toLowerCase() : 'medium';
-
   const detailContent = document.getElementById('recipeDetailContent');
   const detailModal = document.getElementById('recipeDetailModal');
 
+  const imagePart = recipe.image && recipe.image.trim() !== ''
+    ? `<img src="${recipe.image}" class="detail-img" onerror="this.style.display='none'">`
+    : '';
+
   detailContent.innerHTML = `
     <div class="detail-header">
-      <img src="${recipe.image || defaultImage}" 
-           class="detail-img"
-           onerror="this.src='${defaultImage}'">
+      ${imagePart}
 
       <h2>${escapeHtml(recipe.title)}</h2>
       <p>${escapeHtml(recipe.description)}</p>
 
       <div class="detail-meta">
         <span class="time-badge">⏱️ ${recipe.times} minutes</span>
-        <span class="difficulty-badge ${difficultyClass}">
+        <span class="difficulty-badge ${recipe.difficulty?.toLowerCase()}">
           ${recipe.difficulty}
         </span>
         <span class="category-badge">${recipe.category}</span>
@@ -311,7 +303,6 @@ function editRecipe(recipeId) {
 
   editingRecipeId = recipeId;
 
-  const form = document.getElementById('recipeForm');
   const detailModal = document.getElementById('recipeDetailModal');
   const addModal = document.getElementById('addRecipeModal');
 
@@ -325,7 +316,8 @@ function editRecipe(recipeId) {
   document.getElementById('recipeSteps').value = recipe.steps.join('\n');
   document.getElementById('recipeTimes').value = recipe.times;
   document.getElementById('recipeDifficulty').value = recipe.difficulty;
-  document.getElementById('recipeImage').value = recipe.image;
+
+  document.getElementById('recipeImage').value = recipe.image || '';
 
   addModal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
@@ -356,7 +348,8 @@ function handleFormSubmit(e) {
   const steps = document.getElementById('recipeSteps').value.trim();
   const time = document.getElementById('recipeTimes').value;
   const difficulty = document.getElementById('recipeDifficulty').value;
-  const image = document.getElementById('recipeImage').value.trim();
+
+  const imageInput = document.getElementById('recipeImage').value.trim();
 
   if (!title || !description || !category || !ingredients || !steps || !time || !difficulty) {
     alert('Please fill in all required fields');
@@ -374,11 +367,12 @@ function handleFormSubmit(e) {
       steps: steps.split('\n').filter(s => s.trim()),
       times: parseInt(time),
       difficulty,
-      image: image || recipes[index].image
+      image: imageInput || '' // NO DEFAULT IMAGE
     };
 
     alert('Recipe updated successfully!');
     editingRecipeId = null;
+
   } else {
     const newRecipe = {
       id: Date.now().toString(),
@@ -389,7 +383,7 @@ function handleFormSubmit(e) {
       steps: steps.split('\n'),
       times: parseInt(time),
       difficulty,
-      image: image || 'https://via.placeholder.com/400x300?text=No+Image'
+      image: imageInput || ''   // NO DEFAULT IMAGE
     };
 
     recipes.unshift(newRecipe);
