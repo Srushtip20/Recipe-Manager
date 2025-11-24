@@ -13,28 +13,36 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Load recipes from localStorage or default data
+// Load recipes (default + local) only on first load
 function initializeRecipes() {
   try {
     const stored = localStorage.getItem("recipes");
+    const firstLoadDone = localStorage.getItem("firstLoadDone");
 
-    if (stored) {
+    // If already loaded before → use ONLY localStorage recipes
+    if (firstLoadDone && stored) {
       recipes = JSON.parse(stored);
       return;
     }
 
+    let defaultRecipes = [];
     if (typeof recipesData !== "undefined" && Array.isArray(recipesData)) {
-      recipes = JSON.parse(JSON.stringify(recipesData));
-    } else {
-      recipes = [];
+      defaultRecipes = JSON.parse(JSON.stringify(recipesData));
     }
 
+    // First time → load defaults
+    recipes = defaultRecipes;
+
+    // Save to localStorage
     localStorage.setItem("recipes", JSON.stringify(recipes));
+    localStorage.setItem("firstLoadDone", "true");  // important flag
 
   } catch (err) {
     console.error("Error loading recipes:", err);
     recipes = [];
   }
 }
+
 
 // Save recipes to localStorage
 function saveRecipes() {
